@@ -11,7 +11,12 @@ export const transformRolesToDropdownFormat = (
     leave: [],
     people: [],
     attendance: [],
+<<<<<<< HEAD
+    esign: [],
+    okr: []
+=======
     esign: []
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
   };
 
   rolesData.forEach((moduleData) => {
@@ -26,7 +31,11 @@ export const transformRolesToDropdownFormat = (
     );
 
     if (moduleKey in result) {
+<<<<<<< HEAD
+      result[moduleKey] = dropdownOptions as any;
+=======
       result[moduleKey] = dropdownOptions;
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
     }
   });
 

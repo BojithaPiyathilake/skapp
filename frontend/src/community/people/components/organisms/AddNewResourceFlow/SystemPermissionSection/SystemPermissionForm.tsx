@@ -121,9 +121,13 @@ const SystemPermissionForm = ({
     leaveManagerLimitExceeded: false,
     attendanceManagerLimitExceeded: false,
     peopleManagerLimitExceeded: false,
+<<<<<<< HEAD
+    superAdminLimitExceeded: false
+=======
     superAdminLimitExceeded: false,
     esignAdminLimitExceeded: false,
     esignSenderLimitExceeded: false
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
   });
 
   const initialValues: SystemPermissionInitialStateType = {
@@ -131,7 +135,12 @@ const SystemPermissionForm = ({
     peopleRole: userRoles.peopleRole || Role.PEOPLE_EMPLOYEE,
     leaveRole: userRoles.leaveRole || Role.LEAVE_EMPLOYEE,
     attendanceRole: userRoles.attendanceRole || Role.ATTENDANCE_EMPLOYEE,
+<<<<<<< HEAD
+    esignRole: userRoles.esignRole || Role.ESIGN_EMPLOYEE,
+    okrRole: userRoles.okrRole || Role.OKR_SENDER
+=======
     esignRole: userRoles.esignRole || Role.ESIGN_EMPLOYEE
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
   };
 
   const { values, setFieldValue } = useFormik({
@@ -347,6 +356,27 @@ const SystemPermissionForm = ({
               }
             />
           )}
+<<<<<<< HEAD
+
+          <DropdownList
+            inputName={"okrRole"}
+            label="OKR"
+            itemList={grantablePermission?.okr || []}
+            value={values.okrRole}
+            componentStyle={classes.dropdownListComponentStyles}
+            checkSelected
+            onChange={(event) =>
+              handleCustomChange({
+                name: "okrRole",
+                value: (event.target as HTMLSelectElement).value
+              })
+            }
+            isDisabled={
+              isProfileView || values.isSuperAdmin || isInputsDisabled
+            }
+          />
+=======
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
         </Stack>
 
         {isUpdate &&

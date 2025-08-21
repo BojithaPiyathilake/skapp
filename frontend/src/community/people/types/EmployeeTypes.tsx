@@ -414,7 +414,13 @@ export enum Role {
   ATTENDANCE_EMPLOYEE = "ATTENDANCE_EMPLOYEE",
   ESIGN_EMPLOYEE = "ESIGN_EMPLOYEE",
   ESIGN_SENDER = "ESIGN_SENDER",
+<<<<<<< HEAD
+  ESIGN_ADMIN = "ESIGN_ADMIN",
+  OKR_ADMIN = "OKR_ADMIN",
+  OKR_SENDER = "OKR_SENDER"
+=======
   ESIGN_ADMIN = "ESIGN_ADMIN"
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
 }
 
 export interface EmployeeRoleType {
@@ -423,6 +429,10 @@ export interface EmployeeRoleType {
   peopleRole: Role;
   leaveRole: Role;
   esignRole: Role;
+<<<<<<< HEAD
+  okrRole: Role;
+=======
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
 }
 
 export interface EmployeeDataExists {
