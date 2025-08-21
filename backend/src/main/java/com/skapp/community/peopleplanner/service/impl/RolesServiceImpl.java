@@ -29,6 +29,7 @@ import com.skapp.community.peopleplanner.repository.EmployeeRoleDao;
 import com.skapp.community.peopleplanner.repository.ModuleRoleRestrictionDao;
 import com.skapp.community.peopleplanner.repository.TeamDao;
 import com.skapp.community.peopleplanner.service.RolesService;
+import com.skapp.community.peopleplanner.type.AccountStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -214,6 +216,7 @@ public class RolesServiceImpl implements RolesService {
 		roles.put(ModuleType.ATTENDANCE, List.of(RoleLevel.ADMIN, RoleLevel.MANAGER, RoleLevel.EMPLOYEE));
 		roles.put(ModuleType.PEOPLE, List.of(RoleLevel.ADMIN, RoleLevel.MANAGER, RoleLevel.EMPLOYEE));
 		roles.put(ModuleType.LEAVE, List.of(RoleLevel.ADMIN, RoleLevel.MANAGER, RoleLevel.EMPLOYEE));
+		roles.put(ModuleType.OKR, List.of(RoleLevel.ADMIN, RoleLevel.MANAGER, RoleLevel.EMPLOYEE));
 
 		return roles;
 	}
@@ -222,7 +225,8 @@ public class RolesServiceImpl implements RolesService {
 	public ResponseEntityDto getSuperAdminCount() {
 		log.info("getSuperAdminCount: execution started");
 
-		long superAdminCount = employeeRoleDao.countByIsSuperAdminTrue();
+		long superAdminCount = employeeRoleDao
+			.countByIsSuperAdminTrueAndEmployee_AccountStatusIn(Set.of(AccountStatus.ACTIVE, AccountStatus.PENDING));
 
 		log.info("getSuperAdminCount: execution ended");
 		return new ResponseEntityDto(false, superAdminCount);
@@ -253,6 +257,16 @@ public class RolesServiceImpl implements RolesService {
 		return employeeRole;
 	}
 
+	@Override
+	public EmployeeSystemPermissionsDto getDefaultEmployeeRoles() {
+		EmployeeSystemPermissionsDto defaultEmployeeRoles = new EmployeeSystemPermissionsDto();
+		defaultEmployeeRoles.setPeopleRole(Role.PEOPLE_EMPLOYEE);
+		defaultEmployeeRoles.setLeaveRole(Role.LEAVE_EMPLOYEE);
+		defaultEmployeeRoles.setAttendanceRole(Role.ATTENDANCE_EMPLOYEE);
+		defaultEmployeeRoles.setEsignRole(Role.ESIGN_EMPLOYEE);
+		return defaultEmployeeRoles;
+	}
+
 	public void validateRoles(EmployeeSystemPermissionsDto userRoles, User user) {
 		if ((user.getEmployee() == null || user.getEmployee().getEmployeeRole() == null) && userRoles == null) {
 			throw new ValidationException(PeopleMessageConstant.PEOPLE_ERROR_SYSTEM_PERMISSION_REQUIRED);
@@ -266,7 +280,9 @@ public class RolesServiceImpl implements RolesService {
 
 		if (userRoles != null && user.getEmployee() != null
 				&& Boolean.TRUE.equals(user.getEmployee().getEmployeeRole().getIsSuperAdmin())
-				&& employeeRoleDao.countByIsSuperAdminTrue() == 1 && isUserRoleDowngraded(userRoles)) {
+				&& employeeRoleDao.countByIsSuperAdminTrueAndEmployee_AccountStatusIn(
+						Set.of(AccountStatus.ACTIVE, AccountStatus.PENDING)) == 1
+				&& isUserRoleDowngraded(userRoles)) {
 			throw new ModuleException(PeopleMessageConstant.PEOPLE_ERROR_ONLY_ONE_SUPER_ADMIN);
 		}
 
@@ -431,6 +447,12 @@ public class RolesServiceImpl implements RolesService {
 				case EMPLOYEE -> Role.LEAVE_EMPLOYEE;
 				default -> null;
 			};
+			case OKR -> switch (roleLevel) {
+				case ADMIN -> Role.OKR_ADMIN;
+				case MANAGER -> Role.OKR_MANAGER;
+				case EMPLOYEE -> Role.OKR_EMPLOYEE;
+				default -> null;
+			};
 			default -> null;
 		};
 	}
@@ -452,6 +474,7 @@ public class RolesServiceImpl implements RolesService {
 			employeeRole.setLeaveRole(Role.LEAVE_ADMIN);
 			employeeRole.setAttendanceRole(Role.ATTENDANCE_ADMIN);
 			employeeRole.setEsignRole(Role.ESIGN_ADMIN);
+			employeeRole.setOkrRole(Role.OKR_ADMIN);
 			employeeRole.setIsSuperAdmin(true);
 		}
 		else {
@@ -459,6 +482,7 @@ public class RolesServiceImpl implements RolesService {
 			CommonModuleUtils.setIfExists(roleRequestDto::getLeaveRole, employeeRole::setLeaveRole);
 			CommonModuleUtils.setIfExists(roleRequestDto::getAttendanceRole, employeeRole::setAttendanceRole);
 			CommonModuleUtils.setIfExists(roleRequestDto::getEsignRole, employeeRole::setEsignRole);
+			CommonModuleUtils.setIfExists(roleRequestDto::getOkrRole, employeeRole::setOkrRole);
 			CommonModuleUtils.setIfExists(roleRequestDto::getIsSuperAdmin, employeeRole::setIsSuperAdmin);
 		}
 

@@ -33,9 +33,13 @@ const useSystemPermissionFormHandlers = () => {
 
   const environment = useGetEnvironment();
   const { setToastMessage } = useToast();
-  const { employee, setSystemPermissions, initialEmployee } = usePeopleStore(
-    (state) => state
-  );
+  const {
+    employee,
+    setSystemPermissions,
+    initialEmployee,
+    superAdminCount,
+    setSuperAdminCount
+  } = usePeopleStore((state) => state);
 
   const [permissions, setPermissions] = useState<L2SystemPermissionsType>(
     employee?.systemPermissions || {}
@@ -62,8 +66,6 @@ const useSystemPermissionFormHandlers = () => {
     environment === appModes.ENTERPRISE
   );
 
-  const [superAdminCount, setSuperAdminCount] = useState(superAdminCountData);
-
   useEffect(() => {
     if (roleLimitsData) {
       setRoleLimits(roleLimitsData);
@@ -72,10 +74,13 @@ const useSystemPermissionFormHandlers = () => {
 
   useEffect(() => {
     setPermissions(employee?.systemPermissions || {});
-    if (superAdminCountData) {
+  }, [employee]);
+
+  useEffect(() => {
+    if (superAdminCountData && superAdminCount === 0) {
       setSuperAdminCount(superAdminCountData);
     }
-  }, [employee, superAdminCountData]);
+  }, [superAdminCountData, superAdminCount, setSuperAdminCount]);
 
   const roleLimitMapping: RoleLimitMapping = {
     peopleRole: {
@@ -244,7 +249,8 @@ const useSystemPermissionFormHandlers = () => {
       setSystemPermissions,
       setToastMessage,
       translateText,
-      initialEmployee
+      initialEmployee,
+      setSuperAdminCount
     ]
   );
 
