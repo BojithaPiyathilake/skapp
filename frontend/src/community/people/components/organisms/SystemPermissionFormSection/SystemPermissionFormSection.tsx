@@ -114,7 +114,12 @@ const SystemPermissionFormSection = ({
         peopleRole: employee?.systemPermissions?.peopleRole,
         leaveRole: employee?.systemPermissions?.leaveRole,
         attendanceRole: employee?.systemPermissions?.attendanceRole,
+<<<<<<< HEAD
+        esignRole: employee?.systemPermissions?.esignRole,
+        okrRole: employee?.systemPermissions?.okrRole
+=======
         esignRole: employee?.systemPermissions?.esignRole
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
       };
 
       const errorsToShow = [];
@@ -336,6 +341,30 @@ const SystemPermissionFormSection = ({
                 }
               />
             )}
+<<<<<<< HEAD
+
+            <DropdownList
+              inputName={"okrRole"}
+              label={translateText(["OKR"])}
+              itemList={grantablePermission?.okr || []}
+              value={permissions.okrRole}
+              componentStyle={classes.dropdownListComponentStyles}
+              checkSelected
+              onChange={(event) =>
+                handleRoleDropdown(
+                  "okrRole",
+                  (event.target as HTMLSelectElement).value as Role
+                )
+              }
+              isDisabled={
+                isProfileView ||
+                permissions.isSuperAdmin ||
+                isInputsDisabled ||
+                isReadOnly
+              }
+            />
+=======
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
           </Stack>
 
           {isUpdate &&

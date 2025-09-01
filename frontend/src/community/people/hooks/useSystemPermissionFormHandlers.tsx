@@ -51,9 +51,13 @@ const useSystemPermissionFormHandlers = () => {
     leaveManagerLimitExceeded: false,
     attendanceManagerLimitExceeded: false,
     peopleManagerLimitExceeded: false,
+<<<<<<< HEAD
+    superAdminLimitExceeded: false
+=======
     superAdminLimitExceeded: false,
     esignAdminLimitExceeded: false,
     esignSenderLimitExceeded: false
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
   });
 
   const { data: superAdminCountData } = useGetSuperAdminCount();
@@ -117,15 +121,38 @@ const useSystemPermissionFormHandlers = () => {
     },
     esignRole: {
       [Role.ESIGN_ADMIN]: {
+<<<<<<< HEAD
+        limitExceeded: (roleLimits as any).esignAdminLimitExceeded || false,
+=======
         limitExceeded: roleLimits.esignAdminLimitExceeded,
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
         title: "eSignAdminLimitationTitle",
         description: "eSignAdminLimitationDescription"
       },
       [Role.ESIGN_SENDER]: {
+<<<<<<< HEAD
+        limitExceeded: (roleLimits as any).esignSenderLimitExceeded || false,
+        title: "eSignSenderLimitationTitle",
+        description: "eSignSenderLimitationDescription"
+      }
+    },
+    okrRole: {
+      [Role.OKR_ADMIN]: {
+        limitExceeded: (roleLimits as any).okrAdminLimitExceeded || false,
+        title: "okrAdminLimitationTitle",
+        description: "okrAdminLimitationDescription"
+      },
+      [Role.OKR_SENDER]: {
+        limitExceeded: (roleLimits as any).okrSenderLimitExceeded || false,
+        title: "okrSenderLimitationTitle",
+        description: "okrSenderLimitationDescription"
+      }
+=======
         limitExceeded: roleLimits.esignSenderLimitExceeded,
         title: "eSignSenderLimitationTitle",
         description: "eSignSenderLimitationDescription"
       }
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
     }
   };
 
@@ -196,14 +223,24 @@ const useSystemPermissionFormHandlers = () => {
         leaveRole: Role.LEAVE_ADMIN,
         attendanceRole: Role.ATTENDANCE_ADMIN,
         peopleRole: Role.PEOPLE_ADMIN,
+<<<<<<< HEAD
+        esignRole: Role.ESIGN_ADMIN,
+        okrRole: Role.OKR_ADMIN
+=======
         esignRole: Role.ESIGN_ADMIN
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
       });
       setSystemPermissions({
         isSuperAdmin: checked,
         leaveRole: Role.LEAVE_ADMIN,
         attendanceRole: Role.ATTENDANCE_ADMIN,
         peopleRole: Role.PEOPLE_ADMIN,
+<<<<<<< HEAD
+        esignRole: Role.ESIGN_ADMIN,
+        okrRole: Role.OKR_ADMIN
+=======
         esignRole: Role.ESIGN_ADMIN
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
       });
     },
     [

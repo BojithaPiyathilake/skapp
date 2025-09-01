@@ -132,7 +132,11 @@ export const handleCustomChangeEnterprise = ({
   if (
     name === "esignRole" &&
     value === Role.ESIGN_ADMIN &&
+<<<<<<< HEAD
+    (roleLimits as any).esignAdminLimitExceeded
+=======
     roleLimits.esignAdminLimitExceeded
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
   ) {
     setToastMessage({
       open: true,
@@ -147,7 +151,11 @@ export const handleCustomChangeEnterprise = ({
   if (
     name === "esignRole" &&
     value === Role.ESIGN_SENDER &&
+<<<<<<< HEAD
+    (roleLimits as any).esignSenderLimitExceeded
+=======
     roleLimits.esignSenderLimitExceeded
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
   ) {
     setToastMessage({
       open: true,
@@ -159,6 +167,39 @@ export const handleCustomChangeEnterprise = ({
     return;
   }
 
+<<<<<<< HEAD
+  if (
+    name === "okrRole" &&
+    value === Role.OKR_ADMIN &&
+    (roleLimits as any).okrAdminLimitExceeded
+  ) {
+    setToastMessage({
+      open: true,
+      toastType: ToastType.ERROR,
+      title: roleLimitationText(["okrAdminLimitationTitle"]),
+      description: roleLimitationText(["okrAdminLimitationDescription"]),
+      isIcon: true
+    });
+    return;
+  }
+
+  if (
+    name === "okrRole" &&
+    value === Role.OKR_SENDER &&
+    (roleLimits as any).okrSenderLimitExceeded
+  ) {
+    setToastMessage({
+      open: true,
+      toastType: ToastType.ERROR,
+      title: roleLimitationText(["okrSenderLimitationTitle"]),
+      description: roleLimitationText(["okrSenderLimitationDescription"]),
+      isIcon: true
+    });
+    return;
+  }
+
+=======
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
   setFieldValue(name, value);
   setUserRoles(name, value);
 };
@@ -192,6 +233,11 @@ export const handleCustomChangeDefault = ({
     setUserRoles("attendanceRole", value);
   } else if (name === "esignRole") {
     setUserRoles("esignRole", value);
+<<<<<<< HEAD
+  } else if (name === "okrRole") {
+    setUserRoles("okrRole", value);
+=======
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
   }
 };
 
@@ -247,16 +293,28 @@ export const handleSuperAdminChangeEnterprise = async ({
   const leaveRole = Role.LEAVE_ADMIN;
   const attendanceRole = Role.ATTENDANCE_ADMIN;
   const esignRole = Role.ESIGN_ADMIN;
+<<<<<<< HEAD
+  const okrRole = Role.OKR_ADMIN;
+=======
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
 
   void setFieldValue("peopleRole", peopleRole);
   void setFieldValue("leaveRole", leaveRole);
   void setFieldValue("attendanceRole", attendanceRole);
   void setFieldValue("esignRole", esignRole);
+<<<<<<< HEAD
+  void setFieldValue("okrRole", okrRole);
+=======
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
 
   setUserRoles("attendanceRole", attendanceRole);
   setUserRoles("peopleRole", peopleRole);
   setUserRoles("leaveRole", leaveRole);
   setUserRoles("esignRole", esignRole);
+<<<<<<< HEAD
+  setUserRoles("okrRole", okrRole);
+=======
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
 };
 
 interface HandleSuperAdminChangeDefaultProps {
@@ -297,14 +355,26 @@ export const handleSuperAdminChangeDefault = async ({
   const peopleRole = Role.PEOPLE_ADMIN;
   const leaveRole = Role.LEAVE_ADMIN;
   const attendanceRole = Role.ATTENDANCE_ADMIN;
+<<<<<<< HEAD
+  const okrRole = Role.OKR_ADMIN;
+=======
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
 
   void setFieldValue("peopleRole", peopleRole);
   void setFieldValue("leaveRole", leaveRole);
   void setFieldValue("attendanceRole", attendanceRole);
+<<<<<<< HEAD
+  void setFieldValue("okrRole", okrRole);
+=======
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
 
   setUserRoles("attendanceRole", attendanceRole);
   setUserRoles("peopleRole", peopleRole);
   setUserRoles("leaveRole", leaveRole);
+<<<<<<< HEAD
+  setUserRoles("okrRole", okrRole);
+=======
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
 };
 
 const isSupervisingEmployees = (
@@ -414,6 +484,10 @@ export const handleSystemPermissionFormSubmit = ({
   setUserRoles("peopleRole", values.peopleRole);
   setUserRoles("leaveRole", values.leaveRole);
   setUserRoles("esignRole", values.esignRole);
+<<<<<<< HEAD
+  setUserRoles("okrRole", values.okrRole);
+=======
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
 };
 
 interface HandleModalClose {
@@ -440,7 +514,13 @@ export const handleModalClose = ({
       "isSuperAdmin",
       "peopleRole",
       "leaveRole",
+<<<<<<< HEAD
+      "attendanceRole",
+      "esignRole",
+      "okrRole"
+=======
       "attendanceRole"
+>>>>>>> f276ff75fe121543856a52563da2034b02eb0e07
     ] as const;
 
     roles.forEach((role) => {
